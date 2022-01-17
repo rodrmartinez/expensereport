@@ -1,55 +1,70 @@
 package expenses
 
 import (
-    "fmt"
-    "time"
+	"fmt"
+	"time"
 )
 
 type Type int
 
 const (
-    DINNER Type = iota + 1
-    BREAKFAST
-    CAR_RENTAL
+	DINNER Type = iota + 1
+	BREAKFAST
+	CAR_RENTAL
+	LUNCH
 )
 
 type Expense struct {
-    Type Type
-    Amount int
+	Type   Type
+	Amount int
 }
 
-func printReport(expenses []Expense) {
-    total := 0
-    mealExpenses := 0
+func getExpenseName(expense Expense) string {
+	switch expense.Type {
+	case DINNER:
+		return "Dinner"
+	case BREAKFAST:
+		return "Breakfast"
+	case CAR_RENTAL:
+		return "Car Rental"
+	case LUNCH:
+		return "Lunch"
+	default:
+		return "Expense not found"
+	}
+}
 
-    fmt.Printf("Expenses %s\n", time.Now().Format("2006-01-02"))
+func expenseValid(expense Expense) string {
+	if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 || expense.Type == LUNCH && expense.Amount > 2000 {
+		return "X"
+	} else {
+		return " "
+	}
+}
 
-    for _, expense := range expenses {
-        if expense.Type == DINNER || expense.Type == BREAKFAST {
-            mealExpenses += expense.Amount
-        }
+func getExpenses(expenses []Expense) (int, int) {
+	total := 0
+	mealExpenses := 0
 
-        var expenseName string
-        switch (expense.Type) {
-        case DINNER:
-            expenseName = "Dinner"
-        case BREAKFAST:
-            expenseName = "Breakfast"
-        case CAR_RENTAL:
-            expenseName = "Car Rental"
-        }
+	for _, expense := range expenses {
+		if expense.Type != CAR_RENTAL {
+			mealExpenses += expense.Amount
+		}
 
-        var mealOverExpensesMarker string
-        if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 {
-            mealOverExpensesMarker = "X"
-        } else {
-            mealOverExpensesMarker = " "
-        }
+		total += expense.Amount
+	}
+	return mealExpenses, total
+}
 
-        fmt.Printf("%s\t%d\t%s\n", expenseName, expense.Amount, mealOverExpensesMarker)
-        total += expense.Amount
-    }
+func printReport(expenses []Expense) string {
+	report := fmt.Sprintf("Expenses %s\n", time.Now().Format("2006-01-02"))
+	for _, expense := range expenses {
+		report += fmt.Sprintf("%s\t%d\t%s\n", getExpenseName(expense), expense.Amount, expenseValid(expense))
+	}
+	mealExpenses, total := getExpenses(expenses)
+	report += fmt.Sprintf("Meal expenses: %d\n", mealExpenses)
+	report += fmt.Sprintf("Total expenses: %d\n", total)
 
-    fmt.Println("Meal expenses: %d\n", mealExpenses)
-    fmt.Println("Total expenses: %d\n", total)
+	return report
+
 }

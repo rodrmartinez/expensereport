@@ -1,0 +1,4 @@
+Expenses 2022-01-16
+Lunch	3000	X
+Meal expenses: 3000
+Total expenses: 3000
