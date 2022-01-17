@@ -1,0 +1,6 @@
+Expenses 2022-01-16
+Dinner	10	 
+Breakfast	20	 
+Car Rental	40	 
+Meal expenses: 30
+Total expenses: 70
