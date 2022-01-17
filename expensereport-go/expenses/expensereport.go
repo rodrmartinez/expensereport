@@ -56,13 +56,15 @@ func getExpenses(expenses []Expense) (int, int) {
 	return mealExpenses, total
 }
 
-func printReport(expenses []Expense) {
-	fmt.Printf("Expenses %s\n", time.Now().Format("2006-01-02"))
+func printReport(expenses []Expense) string {
+	report := fmt.Sprintf("Expenses %s\n", time.Now().Format("2006-01-02"))
 	for _, expense := range expenses {
-		fmt.Printf("%s\t%d\t%s\n", getExpenseName(expense), expense.Amount, expenseValid(expense))
+		report += fmt.Sprintf("%s\t%d\t%s\n", getExpenseName(expense), expense.Amount, expenseValid(expense))
 	}
 	mealExpenses, total := getExpenses(expenses)
-	fmt.Printf("Meal expenses: %d\n", mealExpenses)
-	fmt.Printf("Total expenses: %d\n", total)
+	report += fmt.Sprintf("Meal expenses: %d\n", mealExpenses)
+	report += fmt.Sprintf("Total expenses: %d\n", total)
+
+	return report
 
 }
