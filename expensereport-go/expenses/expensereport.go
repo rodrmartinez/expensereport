@@ -11,6 +11,7 @@ const (
 	DINNER Type = iota + 1
 	BREAKFAST
 	CAR_RENTAL
+	LUNCH
 )
 
 type Expense struct {
@@ -25,7 +26,7 @@ func printReport(expenses []Expense) {
 	fmt.Printf("Expenses %s\n", time.Now().Format("2006-01-02"))
 
 	for _, expense := range expenses {
-		if expense.Type == DINNER || expense.Type == BREAKFAST {
+		if expense.Type == DINNER || expense.Type == BREAKFAST || expense.Type == LUNCH {
 			mealExpenses += expense.Amount
 		}
 
@@ -37,10 +38,12 @@ func printReport(expenses []Expense) {
 			expenseName = "Breakfast"
 		case CAR_RENTAL:
 			expenseName = "Car Rental"
+		case LUNCH:
+			expenseName = "Lunch"
 		}
 
 		var mealOverExpensesMarker string
-		if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 {
+		if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 || expense.Type == LUNCH && expense.Amount > 2000 {
 			mealOverExpensesMarker = "X"
 		} else {
 			mealOverExpensesMarker = " "

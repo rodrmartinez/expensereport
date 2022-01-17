@@ -31,3 +31,13 @@ func TestPrintReport(t *testing.T) {
 	expenses := []Expense{{1, 10}, {2, 20}}
 	printReport(expenses)
 }
+
+func TestPrintReportLunch(t *testing.T) {
+	expenses := []Expense{{4, 30}}
+	printReport(expenses)
+}
+
+func TestPrintReportOverExpenses(t *testing.T) {
+	expenses := []Expense{{4, 3000}}
+	printReport(expenses)
+}
