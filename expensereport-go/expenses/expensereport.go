@@ -27,13 +27,15 @@ func getExpenseName(expense Expense) string {
 		return "Breakfast"
 	case CAR_RENTAL:
 		return "Car Rental"
+	case LUNCH:
+		return "Lunch"
 	default:
 		return "Expense not found"
 	}
 }
 
 func expenseValid(expense Expense) string {
-	if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 {
+	if expense.Type == DINNER && expense.Amount > 5000 || expense.Type == BREAKFAST && expense.Amount > 1000 || expense.Type == LUNCH && expense.Amount > 2000 {
 		return "X"
 	} else {
 		return " "

@@ -68,3 +68,33 @@ func TestGetExpenses(t *testing.T) {
 	assert.Equal(t, 210, total)
 
 }
+
+func TestGetLunchName(t *testing.T) {
+	expense := Expense{4, 10}
+	got := getExpenseName(expense)
+	assert.Equal(t, "Lunch", got)
+}
+
+func TestaLunchValid(t *testing.T) {
+	expense := Expense{4, 50}
+	got := expenseValid(expense)
+	assert.Equal(t, " ", got)
+
+	expense = Expense{4, 2001}
+	got = expenseValid(expense)
+	assert.Equal(t, "X", got)
+
+}
+
+func TestGetExpenseWithLunch(t *testing.T) {
+	expenses := []Expense{{4, 10}}
+	meals, total := getExpenses(expenses)
+	assert.Equal(t, 10, meals)
+	assert.Equal(t, 10, total)
+
+    expenses = []Expense{{1, 10},{2,50},{3,150},{4,30}}
+	meals, total = getExpenses(expenses)
+	assert.Equal(t, 90, meals)
+	assert.Equal(t, 240, total)
+
+}
